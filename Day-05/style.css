@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.logo {
+  font-style: oblique;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+header {
+  padding: 1rem;
+  background: greenyellow;
+  color: black;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  color: rgb(6, 14, 0);
+  background-color: greenyellow;
+  margin-left: 1rem;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: crimson;
+  background-color: coral;
+}
+
+.hero {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.8s ease-in;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.card {
+  padding: 2rem;
+  background: #f6f4f4;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media(orientation: portrait){
+header{
+background: crimson;
+a{
+background: crimson;
+}}
