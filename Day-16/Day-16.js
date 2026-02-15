@@ -1,4 +1,4 @@
-let name = "Adiya";
+let name = "Aditya";
 let age = "19";
 let num = Number(age);
 
