@@ -17,11 +17,18 @@ module.exports = async (req, res) => {
 
   try {
     const sql = neon(process.env.DATABASE_URL);
+    
+    // Convert id to integer
+    const postId = parseInt(id, 10);
+    
+    if (isNaN(postId)) {
+      return res.status(400).json({ error: 'Invalid post ID' });
+    }
 
     // GET single post
     if (req.method === 'GET') {
       const posts = await sql`
-        SELECT * FROM posts WHERE id = ${id}
+        SELECT * FROM posts WHERE id = ${postId}
       `;
       
       if (posts.length === 0) {
@@ -44,7 +51,7 @@ module.exports = async (req, res) => {
           tags = COALESCE(${tags || null}::text[], tags),
           published = COALESCE(${published !== undefined ? published : null}, published),
           updated_at = NOW()
-        WHERE id = ${id}
+        WHERE id = ${postId}
         RETURNING *
       `;
 
@@ -58,7 +65,7 @@ module.exports = async (req, res) => {
     // DELETE post
     if (req.method === 'DELETE') {
       const result = await sql`
-        DELETE FROM posts WHERE id = ${id}
+        DELETE FROM posts WHERE id = ${postId}
         RETURNING id
       `;
       
