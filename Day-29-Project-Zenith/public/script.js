@@ -318,32 +318,38 @@ function renderTweets(tweets, container) {
     
     postCards.forEach(postEl => {
         let lastTap = 0;
+        let tapTimeout = null;
         
         postEl.addEventListener('click', (e) => {
             const currentTime = new Date().getTime();
             const tapLength = currentTime - lastTap;
             
+            // Clear any pending single-tap action
+            if (tapTimeout) {
+                clearTimeout(tapTimeout);
+                tapTimeout = null;
+            }
+            
             // Double tap detected (within 300ms)
             if (tapLength < 300 && tapLength > 0) {
                 console.log('Double tap detected! Opening edit modal');
                 e.preventDefault();
+                e.stopPropagation();
                 const postId = postEl.dataset.id;
                 const content = postEl.querySelector('.post-content').textContent;
                 openEditModal(postId, content);
                 lastTap = 0; // Reset
             } else {
-                // Single tap - view post
-                console.log('Single tap - viewing post', postEl.dataset.id);
+                // Single tap - delay to check if it's a double tap
+                console.log('Potential single tap detected');
                 lastTap = currentTime;
                 
-                // Delay to check if it's a double tap
-                setTimeout(() => {
-                    if (lastTap === currentTime) {
-                        const postId = postEl.dataset.id;
-                        currentTweetId = postId;
-                        fetchTweet(postId);
-                        showView('post');
-                    }
+                tapTimeout = setTimeout(() => {
+                    console.log('Confirmed single tap - viewing post', postEl.dataset.id);
+                    const postId = postEl.dataset.id;
+                    currentTweetId = postId;
+                    fetchTweet(postId);
+                    showView('post');
                 }, 300);
             }
         });
