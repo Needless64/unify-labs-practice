@@ -18,11 +18,16 @@ module.exports = async (req, res) => {
   try {
     const sql = neon(process.env.DATABASE_URL);
     
+    // Log for debugging
+    console.log('Received ID:', id, 'Type:', typeof id);
+    
     // Convert id to integer
     const postId = parseInt(id, 10);
     
+    console.log('Parsed ID:', postId, 'isNaN:', isNaN(postId));
+    
     if (isNaN(postId)) {
-      return res.status(400).json({ error: 'Invalid post ID' });
+      return res.status(400).json({ error: 'Invalid post ID', received: id, type: typeof id });
     }
 
     // GET single post
