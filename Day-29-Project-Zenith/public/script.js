@@ -161,10 +161,23 @@ async function fetchTweet(id) {
     try {
         showLoading();
         const response = await fetch(`/api/posts/${id}`);
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch post: ${response.status}`);
+        }
+        
         const tweet = await response.json();
+        
+        if (tweet.error) {
+            throw new Error(tweet.error);
+        }
+        
         renderSingleTweet(tweet);
     } catch (error) {
+        console.error('Error fetching tweet:', error);
         showNotification('Failed to load post', 'error');
+        // Go back to home view if post fails to load
+        setTimeout(() => showView('home'), 2000);
     } finally {
         hideLoading();
     }

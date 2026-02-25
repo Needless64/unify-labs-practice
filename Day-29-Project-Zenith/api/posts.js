@@ -43,19 +43,7 @@ export default async function handler(req, res) {
         posts = await sql`SELECT * FROM posts ORDER BY created_at DESC`;
       }
       
-      // Convert to MongoDB-like format for frontend compatibility
-      const formattedPosts = posts.map(row => ({
-        _id: row.id.toString(),
-        title: row.title,
-        content: row.content,
-        author: row.author,
-        tags: row.tags || [],
-        published: row.published,
-        createdAt: row.created_at,
-        updatedAt: row.updated_at
-      }));
-      
-      return res.status(200).json(formattedPosts);
+      return res.status(200).json(posts);
     }
 
     // POST create new post
@@ -72,17 +60,7 @@ export default async function handler(req, res) {
         RETURNING *
       `;
 
-      const post = result[0];
-      return res.status(201).json({
-        _id: post.id.toString(),
-        title: post.title,
-        content: post.content,
-        author: post.author,
-        tags: post.tags || [],
-        published: post.published,
-        createdAt: post.created_at,
-        updatedAt: post.updated_at
-      });
+      return res.status(201).json(result[0]);
     }
 
     return res.status(405).json({ error: 'Method not allowed' });
