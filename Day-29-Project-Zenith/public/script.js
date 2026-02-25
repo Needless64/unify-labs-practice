@@ -272,10 +272,10 @@ function renderTweets(tweets, container) {
     }
     
     const html = tweets.map(tweet => {
-        const timeAgo = formatTimeAgo(tweet.createdAt);
+        const timeAgo = formatTimeAgo(tweet.created_at);
         
         return `
-            <div class="post-card glass" data-id="${tweet._id}">
+            <div class="post-card glass" data-id="${tweet.id}">
                 <div class="post-header">
                     <div class="post-avatar">
                         <i class="fas fa-user"></i>
@@ -312,23 +312,46 @@ function renderTweets(tweets, container) {
     container.innerHTML = html;
     console.log('HTML set to container');
     
-    // Add click listeners to posts
+    // Add click listeners to posts with double-tap to edit
     const postCards = container.querySelectorAll('.post-card');
     console.log('Found post cards:', postCards.length);
     
     postCards.forEach(postEl => {
+        let lastTap = 0;
+        
         postEl.addEventListener('click', (e) => {
-            console.log('Post card clicked!', postEl.dataset.id);
-            const postId = postEl.dataset.id;
-            currentTweetId = postId;
-            fetchTweet(postId);
-            showView('post');
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTap;
+            
+            // Double tap detected (within 300ms)
+            if (tapLength < 300 && tapLength > 0) {
+                console.log('Double tap detected! Opening edit modal');
+                e.preventDefault();
+                const postId = postEl.dataset.id;
+                const content = postEl.querySelector('.post-content').textContent;
+                openEditModal(postId, content);
+                lastTap = 0; // Reset
+            } else {
+                // Single tap - view post
+                console.log('Single tap - viewing post', postEl.dataset.id);
+                lastTap = currentTime;
+                
+                // Delay to check if it's a double tap
+                setTimeout(() => {
+                    if (lastTap === currentTime) {
+                        const postId = postEl.dataset.id;
+                        currentTweetId = postId;
+                        fetchTweet(postId);
+                        showView('post');
+                    }
+                }, 300);
+            }
         });
     });
 }
 
 function renderSingleTweet(tweet) {
-    const date = new Date(tweet.createdAt).toLocaleDateString('en-US', {
+    const date = new Date(tweet.created_at).toLocaleDateString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
         month: 'short',
@@ -368,10 +391,10 @@ function renderSingleTweet(tweet) {
                 </button>
             </div>
             <div style="display: flex; gap: 12px; padding: 16px 0;">
-                <button class="btn-secondary glass" onclick="openEditModal('${tweet._id}', \`${tweet.content.replace(/`/g, '\\`')}\`)">
+                <button class="btn-secondary glass" onclick="openEditModal('${tweet.id}', \`${tweet.content.replace(/`/g, '\\`')}\`)">
                     <i class="fas fa-edit"></i> Edit
                 </button>
-                <button class="btn-secondary glass" style="color: var(--neon-pink);" onclick="deleteTweet('${tweet._id}')">
+                <button class="btn-secondary glass" style="color: var(--neon-pink);" onclick="deleteTweet('${tweet.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
             </div>

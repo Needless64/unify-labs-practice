@@ -1,25 +1,5 @@
 // Vercel Serverless Function for Single Post API
-const { MongoClient, ObjectId } = require('mongodb');
-
-let cachedClient = null;
-let cachedDb = null;
-
-async function connectToDatabase() {
-  if (cachedDb) {
-    return { db, client };
-  }
-
-  const uri = process.env.MONGODB_URI;
-  const client = new MongoClient(uri);
-  
-  await client.connect();
-  const db = client.db('project-zenith');
-
-  cachedClient = client;
-  cachedDb = db;
-
-  return { db, client };
-}
+const { neon } = require('@neondatabase/serverless');
 
 module.exports = async (req, res) => {
   // Enable CORS
@@ -36,51 +16,53 @@ module.exports = async (req, res) => {
   const { id } = req.query;
 
   try {
-    const { db } = await connectToDatabase();
-    const postsCollection = db.collection('posts');
+    const sql = neon(process.env.DATABASE_URL);
 
     // GET single post
     if (req.method === 'GET') {
-      const post = await postsCollection.findOne({ _id: new ObjectId(id) });
+      const posts = await sql`
+        SELECT * FROM posts WHERE id = ${id}
+      `;
       
-      if (!post) {
+      if (posts.length === 0) {
         return res.status(404).json({ error: 'Post not found' });
       }
       
-      return res.status(200).json(post);
+      return res.status(200).json(posts[0]);
     }
 
     // PUT update post
     if (req.method === 'PUT') {
       const { title, content, author, tags, published } = req.body;
       
-      const updateData = {
-        ...(title && { title }),
-        ...(content && { content }),
-        ...(author && { author }),
-        ...(tags && { tags }),
-        ...(published !== undefined && { published }),
-        updatedAt: new Date()
-      };
+      const posts = await sql`
+        UPDATE posts 
+        SET 
+          title = COALESCE(${title}, title),
+          content = COALESCE(${content}, content),
+          author = COALESCE(${author}, author),
+          tags = COALESCE(${tags || null}::text[], tags),
+          published = COALESCE(${published !== undefined ? published : null}, published),
+          updated_at = NOW()
+        WHERE id = ${id}
+        RETURNING *
+      `;
 
-      const result = await postsCollection.findOneAndUpdate(
-        { _id: new ObjectId(id) },
-        { $set: updateData },
-        { returnDocument: 'after' }
-      );
-
-      if (!result.value) {
+      if (posts.length === 0) {
         return res.status(404).json({ error: 'Post not found' });
       }
 
-      return res.status(200).json(result.value);
+      return res.status(200).json(posts[0]);
     }
 
     // DELETE post
     if (req.method === 'DELETE') {
-      const result = await postsCollection.deleteOne({ _id: new ObjectId(id) });
+      const result = await sql`
+        DELETE FROM posts WHERE id = ${id}
+        RETURNING id
+      `;
       
-      if (result.deletedCount === 0) {
+      if (result.length === 0) {
         return res.status(404).json({ error: 'Post not found' });
       }
       
@@ -90,6 +72,6 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   } catch (error) {
     console.error('API Error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error', details: error.message });
   }
 };
