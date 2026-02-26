@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TITAN STORE Homepage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff9900",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#231b0f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .fill-gold { font-variation-settings: 'FILL' 1; color: #FFD700; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<!-- Header Section -->
+<header class="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="max-w-[1440px] mx-auto px-4 lg:px-8 py-3 flex items-center gap-6">
+<!-- Logo -->
+<div class="flex items-center gap-2 shrink-0">
+<span class="material-symbols-outlined text-primary text-3xl">shopping_cart_checkout</span>
+<h1 class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">TITAN<span class="text-primary">STORE</span></h1>
+</div>
+<!-- Search Bar -->
+<div class="flex-1 flex items-stretch max-w-3xl">
+<div class="flex-none bg-slate-100 dark:bg-slate-800 border border-r-0 border-slate-300 dark:border-slate-700 rounded-l-lg px-4 flex items-center cursor-pointer hover:bg-slate-200 transition-colors">
+<span class="text-sm font-medium">All</span>
+<span class="material-symbols-outlined text-sm ml-1">expand_more</span>
+</div>
+<input id="searchInput" class="w-full border-y border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:ring-2 focus:ring-primary focus:border-primary outline-none px-4" placeholder="Search TITAN STORE" type="text"/>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 rounded-r-lg flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+<!-- Nav Actions -->
+<div class="flex items-center gap-6 shrink-0">
+<div class="hidden lg:flex flex-col cursor-pointer">
+<span class="text-[10px] text-slate-500 uppercase font-bold leading-none">Hello, Sign in</span>
+<span class="text-sm font-bold flex items-center">Account &amp; Lists <span class="material-symbols-outlined text-sm">expand_more</span></span>
+</div>
+<div class="hidden lg:flex flex-col cursor-pointer">
+<span class="text-[10px] text-slate-500 uppercase font-bold leading-none">Returns</span>
+<span class="text-sm font-bold">&amp; Orders</span>
+</div>
+<div class="relative flex items-center cursor-pointer group">
+<span class="material-symbols-outlined text-3xl">shopping_cart</span>
+<span class="absolute -top-1 -right-2 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full ring-2 ring-white">0</span>
+<span class="ml-2 font-bold text-sm hidden sm:block">Cart</span>
+</div>
+</div>
+</div>
+<!-- Sub-nav -->
+<nav class="bg-slate-800 text-white px-4 lg:px-8 py-2 flex items-center gap-6 text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
+<a class="flex items-center gap-1 font-bold hover:outline outline-white/20 px-2 py-1" href="#"><span class="material-symbols-outlined">menu</span> All</a>
+<a class="hover:outline outline-white/20 px-2 py-1" href="#">Today's Deals</a>
+<a class="hover:outline outline-white/20 px-2 py-1" href="#">Customer Service</a>
+<a class="hover:outline outline-white/20 px-2 py-1" href="#">Registry</a>
+<a class="hover:outline outline-white/20 px-2 py-1" href="#">Gift Cards</a>
+<a class="hover:outline outline-white/20 px-2 py-1" href="#">Sell</a>
+<a class="ml-auto font-bold text-primary" href="#">Titan Prime | Free Shipping</a>
+</nav>
+</header>
+<main class="max-w-[1440px] mx-auto flex gap-6 px-4 lg:px-8 py-6">
+<!-- Sidebar Filters -->
+<aside class="w-64 shrink-0 hidden md:block">
+<div class="space-y-8">
+<!-- Category -->
+<div>
+<h3 class="font-bold text-sm mb-3">Department</h3>
+<ul class="space-y-2 text-sm">
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/> Electronics</label></li>
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/> Home &amp; Kitchen</label></li>
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/> Fashion</label></li>
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/> Computers</label></li>
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/> Books</label></li>
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/> Toys &amp; Games</label></li>
+</ul>
+</div>
+<!-- Star Rating -->
+<div>
+<h3 class="font-bold text-sm mb-3">Customer Reviews</h3>
+<ul class="space-y-2 text-sm">
+<li class="flex items-center gap-2 cursor-pointer group">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-lg">star</span>
+<span class="material-symbols-outlined fill-gold text-lg">star</span>
+<span class="material-symbols-outlined fill-gold text-lg">star</span>
+<span class="material-symbols-outlined fill-gold text-lg">star</span>
+<span class="material-symbols-outlined text-lg">star</span>
+</div>
+<span class="group-hover:text-primary">&amp; Up</span>
+</li>
+<li class="flex items-center gap-2 cursor-pointer group">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-lg">star</span>
+<span class="material-symbols-outlined fill-gold text-lg">star</span>
+<span class="material-symbols-outlined fill-gold text-lg">star</span>
+<span class="material-symbols-outlined text-lg">star</span>
+<span class="material-symbols-outlined text-lg">star</span>
+</div>
+<span class="group-hover:text-primary">&amp; Up</span>
+</li>
+</ul>
+</div>
+<!-- Price Range -->
+<div>
+<h3 class="font-bold text-sm mb-3">Price</h3>
+<div class="space-y-4">
+<div class="relative h-1 bg-slate-200 dark:bg-slate-700 rounded-full">
+<div class="absolute h-1 bg-primary left-0 right-1/4 rounded-full"></div>
+<div class="absolute -top-1.5 left-0 size-4 bg-primary rounded-full shadow border-2 border-white"></div>
+<div class="absolute -top-1.5 right-1/4 size-4 bg-primary rounded-full shadow border-2 border-white"></div>
+</div>
+<div class="flex items-center gap-2">
+<input id="minPrice" class="w-20 text-xs rounded border-slate-300 p-1.5" placeholder="₹ Min" type="text"/>
+<input id="maxPrice" class="w-20 text-xs rounded border-slate-300 p-1.5" placeholder="₹ Max" type="text"/>
+<button id="applyFilters" class="bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded text-xs font-bold border border-slate-300">Go</button>
+</div>
+</div>
+</div>
+<!-- Prime Filter -->
+<div>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="rounded border-slate-300 text-primary focus:ring-primary h-5 w-5" type="checkbox"/>
+<span class="bg-blue-600 text-white text-[10px] font-black italic px-1.5 rounded-sm">prime</span>
+</label>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex-1 space-y-8">
+<!-- Hero Section -->
+<section class="relative w-full aspect-[21/9] rounded-xl overflow-hidden shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Cyber Monday electronic gadgets banner" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDDwbLybV3DlwnBPEvl9rISNIWlN442FpUz3yUXSs1HDWCy4rEFCAeDdaR9lFClPR5EDdMSpP_U2adFlHa4XT7D17sNrU07c3olCS0v7bEPogFpo_nV-vpM-_Nj-j3_MGByiLsE1CHczEbT-N7C4pO684gcziyGYnhEf1DkAKZGQHv5PQAp0QzOzi2KwgH6NWlIs8SfSzT0_dpMA_w0roOataF-jCY68dqewUY1RIXNtsAeoesotpM06jj9udJEAJXVhQwZ7odD3utv')"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent flex items-center px-12">
+<div class="max-w-md text-white space-y-4">
+<h2 class="text-5xl font-black leading-tight">Titan Store Holiday Deals</h2>
+<p class="text-xl font-medium opacity-90">Up to 70% off on premium electronics and smart home devices.</p>
+<button class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg shadow-xl transform active:scale-95 transition-all">
+                            Shop All Deals
+                        </button>
+</div>
+</div>
+</section>
+<!-- Product Grid -->
+<div>
+<div class="flex justify-between items-end mb-6">
+<h2 class="text-2xl font-bold">Featured Products</h2>
+<span class="text-sm text-slate-500">Showing 1-8 of 124 results</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="productsGrid">
+<!-- Product Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-lg p-4 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-xl transition-all flex flex-col group">
+<div class="relative mb-4 aspect-square rounded-lg overflow-hidden bg-slate-50 flex items-center justify-center">
+<img alt="Premium Headphones" class="object-contain h-full w-full group-hover:scale-105 transition-transform" data-alt="Professional wireless black over-ear headphones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwRlUxQXN-r6mNkl5xsKLC9OYANw0Q3_mqnEzLm3xzr37d9mGY0jFBkGfXhGlFrr7hsvpdCeuTHinKHU5iXoVjiNN1oRWNQjztnPMnR566M2wceLvuW02tYDhGXJhBBCXGvHkveql3Tlqmd9mOcNGOtAnCv-KeLmaQHtp82Eb02j1sLIRgcpbdK9fYBh9bBpGglFRAKOD49q2BsCqUEg3L590epc5Z568fUsufsOBli2uOFpRbGmzmTDFPZFumEsYdCkt074EKuaKo"/>
+<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">25% OFF</span>
+</div>
+<h3 class="font-medium text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors cursor-pointer">Titan Audio Ultra Pro Wireless Noise Cancelling Headphones</h3>
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star_half</span>
+</div>
+<span class="text-xs text-blue-600 hover:text-red-600 cursor-pointer">(12,430)</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold">₹16,599</span>
+<span class="text-sm text-slate-400 line-through">₹22,327</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-blue-600 text-white text-[10px] font-black italic px-1.5 rounded-sm">prime</span>
+<span class="text-[10px] text-slate-500 font-medium">FREE Delivery Tomorrow</span>
+</div>
+<button class="mt-auto w-full bg-primary hover:bg-primary/90 py-2 rounded-full font-bold text-xs text-white shadow-sm active:ring-2 ring-primary/50">Add to Cart</button>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-lg p-4 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-xl transition-all flex flex-col group">
+<div class="relative mb-4 aspect-square rounded-lg overflow-hidden bg-slate-50 flex items-center justify-center">
+<img alt="Minimalist Watch" class="object-contain h-full w-full group-hover:scale-105 transition-transform" data-alt="Classic silver wristwatch with white face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs-1Tmfzc2O37ozqzkq05yFg293Mbd0NrwyjFyIvB6jWiIxtqIJTkP2YIZb9uv7H55p8uwj_TvXvNlfDlloKwl6pwPBqQQR81dRomf0FIYuz9zQhhfKqECP6t-gvoxgDNxDOD8EphlncLbnoMOzvwDVzj-UlROFtbH0yf7iWctkHW_EiuG5AMSH-4wX_yvHEJf7tgao6hV45shzMTatYraUpopBAIspa3HqOH35DjgJwRe6jHhQelGpCK75bIIofeMX2nqh4Bjtmp1"/>
+<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">SAVE ₹4,150</span>
+</div>
+<h3 class="font-medium text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors cursor-pointer">Classic Minimalist Silver Series Quartz Watch</h3>
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<span class="text-xs text-blue-600 hover:text-red-600 cursor-pointer">(856)</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold">₹10,375</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-blue-600 text-white text-[10px] font-black italic px-1.5 rounded-sm">prime</span>
+</div>
+<button class="mt-auto w-full bg-primary hover:bg-primary/90 py-2 rounded-full font-bold text-xs text-white shadow-sm">Add to Cart</button>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-lg p-4 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-xl transition-all flex flex-col group">
+<div class="relative mb-4 aspect-square rounded-lg overflow-hidden bg-slate-50 flex items-center justify-center">
+<img alt="Smart Speaker" class="object-contain h-full w-full group-hover:scale-105 transition-transform" data-alt="Modern smart home voice assistant speaker" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxR0n9EqdPAxFWgpBj_UG1aPCTnrQGzy9UH3dPyc_m2kzW3M4ZsEqnAUwT4I9E38rnQYVafWOR0oW2XOP-rw9pMl7EeBViwgDPgU4UzQGbbqsJnyblWhSwOq9WYCINvXbfvz3GtGDTnYn5yFn_enZVSIREKt4_T9yHxUh_6H0gfKtd4orwch1107GD58tKTqKl1T2gBKb6WlLEhfRu5fh4OqCcdH4jNnWNfu4-z8DKyoeqBh8kHVAbyrQY0ff9ohLrZvM9jgkGmkEq"/>
+</div>
+<h3 class="font-medium text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors cursor-pointer">Titan Echo Dot - 5th Gen | Smart Speaker with Alexa</h3>
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+</div>
+<span class="text-xs text-blue-600 hover:text-red-600 cursor-pointer">(42,102)</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold">₹4,149</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-blue-600 text-white text-[10px] font-black italic px-1.5 rounded-sm">prime</span>
+</div>
+<button class="mt-auto w-full bg-primary hover:bg-primary/90 py-2 rounded-full font-bold text-xs text-white shadow-sm">Add to Cart</button>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-white dark:bg-slate-900 rounded-lg p-4 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-xl transition-all flex flex-col group">
+<div class="relative mb-4 aspect-square rounded-lg overflow-hidden bg-slate-50 flex items-center justify-center">
+<img alt="Designer Backpack" class="object-contain h-full w-full group-hover:scale-105 transition-transform" data-alt="Ergonomic gray laptop backpack for travel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBii1E7VaT5qeypVZaGxN3DlVCYq1f3wluEOvwVIZn6uxCaKuwmFhyMupiZxJNvqAD42KHof7hXnOCF9v_mxJvO1Qo8WVkZ8PWWOI0e-eRuJ5CG9eNhFLkMmuOEIqlHF0xHKtj_N83Y1RfR6UBij58dZ3hYBxU88uDmif61xmssSmZgh92TJJeqwD0UThr08HgMmkeN-TeXXu5KO3S2wbP6bkJfkO9UJ3siOBDoLD7jcf2P1waBjesvcOKZZvAsf6OQa028nD9avT9c"/>
+<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">BEST SELLER</span>
+</div>
+<h3 class="font-medium text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors cursor-pointer">Water Resistant Laptop Backpack with USB Charging Port</h3>
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<span class="text-xs text-blue-600 hover:text-red-600 cursor-pointer">(5,190)</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold">₹2,901</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-blue-600 text-white text-[10px] font-black italic px-1.5 rounded-sm">prime</span>
+</div>
+<button class="mt-auto w-full bg-primary hover:bg-primary/90 py-2 rounded-full font-bold text-xs text-white shadow-sm">Add to Cart</button>
+</div>
+<!-- Product Card 5-8 Placeholder Generation -->
+<div class="bg-white dark:bg-slate-900 rounded-lg p-4 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-xl transition-all flex flex-col group">
+<div class="relative mb-4 aspect-square rounded-lg overflow-hidden bg-slate-50 flex items-center justify-center">
+<img alt="Instant Camera" class="object-contain h-full w-full group-hover:scale-105 transition-transform" data-alt="Retro style instant film camera blue" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdkTAhxakawCpDnnfjuvFFclYwmDlKKWjCZMPUU6mgEYLrwwRFHLmC8242MWXIq7xRmOw7nmsRHUvWcoGYVOIC-oWS26BOqT4vJHruErRWSDZHnrD1ePWp0kasRUzqYAXdCDZk7VpCALeKyBsENXIsO_DYaNkHRv1Ko_lejhqiXA5mQXBOkyr4LKOw4AaSeX8mxiEO9y1hZ7BQXndJMc9Q5nwA9b6YrFOH6R73_YVvUaIQBmPrkrF_OlEISUHtGl03t3JD7qrCWqjh"/>
+</div>
+<h3 class="font-medium text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors cursor-pointer">Vintage Series Instant Film Camera - Aqua Blue</h3>
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<span class="text-xs text-blue-600 hover:text-red-600 cursor-pointer">(2,341)</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold">₹5,644</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-blue-600 text-white text-[10px] font-black italic px-1.5 rounded-sm">prime</span>
+</div>
+<button class="mt-auto w-full bg-primary hover:bg-primary/90 py-2 rounded-full font-bold text-xs text-white shadow-sm">Add to Cart</button>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-lg p-4 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-xl transition-all flex flex-col group">
+<div class="relative mb-4 aspect-square rounded-lg overflow-hidden bg-slate-50 flex items-center justify-center">
+<img alt="Tablet" class="object-contain h-full w-full group-hover:scale-105 transition-transform" data-alt="High resolution 11-inch silver tablet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKq1JQ8s2efFPrj7fikBYO79h7wO8SZ1pkVzQz0EfyQe7oPdHVTQFbRur8L_E9i33tZLLK-3AjHopS1gtvKDSSxRLQAq073BBm1Z6WZfHco5xNNV6CTLvrUN5ZQ86C_bIoSEnLqa1GpCDbP_3r35pT1afaleKLO65whw7-rs4YrWM2grkQUnoHtiAga5JT6U8PnDFyv3C88jSmxuaGlrNUZKrCgs0ltEAuqEeWuiqpDSdr6vpERO-0EH5GcgkwV88pQnD6ZGdBcPS2"/>
+<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">15% OFF</span>
+</div>
+<h3 class="font-medium text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors cursor-pointer">Titan Pad Pro 11-inch - 256GB WiFi Only</h3>
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+</div>
+<span class="text-xs text-blue-600 hover:text-red-600 cursor-pointer">(3,921)</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold">₹66,317</span>
+<span class="text-sm text-slate-400 line-through">₹74,617</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-blue-600 text-white text-[10px] font-black italic px-1.5 rounded-sm">prime</span>
+</div>
+<button class="mt-auto w-full bg-primary hover:bg-primary/90 py-2 rounded-full font-bold text-xs text-white shadow-sm">Add to Cart</button>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-lg p-4 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-xl transition-all flex flex-col group">
+<div class="relative mb-4 aspect-square rounded-lg overflow-hidden bg-slate-50 flex items-center justify-center">
+<img alt="4K TV" class="object-contain h-full w-full group-hover:scale-105 transition-transform" data-alt="Large 55-inch 4K smart television screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwyRfYYqZ8oJebrr6IZTQ_i2PShnX56fzvtoCz3cg5gOJH-SKRwK94XKQ11REIk40MHn-PSw8Pl1un2Zmm8guRW_8ouvPpZ7RWHSwRPscgL0ZxAp7CMbe5lfFk93QJeItIA4nzLqQwuWzHUGeJ3ylAX8I0iLwmgajUUrs3dk9fE0IJ6APbiVh2trdMpROb-unWACPtMto2HkgOT2-0CHBTHzojvPBbm_JAV8u8AX3ZdS2kvt-cJGVBgn0ZO7aC4lqUL6QI1RoyOsha"/>
+</div>
+<h3 class="font-medium text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors cursor-pointer">55-inch Crystal 4K Smart TV with Built-in Apps</h3>
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<span class="text-xs text-blue-600 hover:text-red-600 cursor-pointer">(1,044)</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold">₹37,183</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-blue-600 text-white text-[10px] font-black italic px-1.5 rounded-sm">prime</span>
+</div>
+<button class="mt-auto w-full bg-primary hover:bg-primary/90 py-2 rounded-full font-bold text-xs text-white shadow-sm">Add to Cart</button>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-lg p-4 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-xl transition-all flex flex-col group">
+<div class="relative mb-4 aspect-square rounded-lg overflow-hidden bg-slate-50 flex items-center justify-center">
+<img alt="Smartphone" class="object-contain h-full w-full group-hover:scale-105 transition-transform" data-alt="Modern pink flagship smartphone device" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0n78LR10epjzlkTqW17_dyZZeBvek-4mFcr2n50rwaAn4ay2U6ll2BoU_oj0B917S6Tn1lNnS6Wf9mnSgCChXhrRKGxrubJLg2bdm_pY8Wg_iKUlWJnWk1ptYWVFeg80TgLZdwwCMmxL_RaRgxPaGIMJC0_nVRBmYRA0BbVciPWbJRiW74PRMY1lrfYBN6rYl587yNRoFS2GK_LCknRWEbUMXrjLqLWHw7m-ij3ALb7tXdKyVWbheHip75E5Ey3jlMksgBxnKzFAp"/>
+<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">NEW</span>
+</div>
+<h3 class="font-medium text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors cursor-pointer">Titan Phone 15 Pro - Titanium Rose, 128GB</h3>
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+<span class="material-symbols-outlined fill-gold text-sm">star</span>
+</div>
+<span class="text-xs text-blue-600 hover:text-red-600 cursor-pointer">(502)</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold">₹82,917</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-blue-600 text-white text-[10px] font-black italic px-1.5 rounded-sm">prime</span>
+</div>
+<button class="mt-auto w-full bg-primary hover:bg-primary/90 py-2 rounded-full font-bold text-xs text-white shadow-sm">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Promotion Banner -->
+<section class="bg-primary/10 rounded-xl p-8 flex flex-col lg:flex-row items-center justify-between gap-6 border border-primary/20">
+<div class="space-y-2 text-center lg:text-left">
+<h3 class="text-2xl font-bold">Try Titan Prime for Free</h3>
+<p class="text-slate-600 dark:text-slate-400">Join over 100 million members for fast, free delivery and exclusive movies.</p>
+</div>
+<button class="bg-primary text-white font-bold py-3 px-10 rounded-full shadow-lg hover:shadow-primary/30 transition-shadow">
+                    Start Your 30-Day Free Trial
+                </button>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-800 text-slate-300 py-12">
+<div class="max-w-[1440px] mx-auto px-4 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+<div>
+<h4 class="text-white font-bold mb-4">Get to Know Us</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:underline" href="#">Careers</a></li>
+<li><a class="hover:underline" href="#">Blog</a></li>
+<li><a class="hover:underline" href="#">About Titan Store</a></li>
+<li><a class="hover:underline" href="#">Sustainability</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Make Money with Us</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:underline" href="#">Sell on Titan</a></li>
+<li><a class="hover:underline" href="#">Become an Affiliate</a></li>
+<li><a class="hover:underline" href="#">Advertise Your Products</a></li>
+<li><a class="hover:underline" href="#">Self-Publish with Us</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Payment Products</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:underline" href="#">Titan Business Card</a></li>
+<li><a class="hover:underline" href="#">Shop with Points</a></li>
+<li><a class="hover:underline" href="#">Reload Your Balance</a></li>
+<li><a class="hover:underline" href="#">Titan Currency Converter</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Let Us Help You</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:underline" href="#">Your Account</a></li>
+<li><a class="hover:underline" href="#">Your Orders</a></li>
+<li><a class="hover:underline" href="#">Shipping Rates &amp; Policies</a></li>
+<li><a class="hover:underline" href="#">Help Center</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-slate-700 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">shopping_cart_checkout</span>
+<h2 class="text-xl font-bold text-white">TITAN STORE</h2>
+</div>
+<div class="flex gap-4 text-xs">
+<a class="hover:underline" href="#">Conditions of Use</a>
+<a class="hover:underline" href="#">Privacy Notice</a>
+<a class="hover:underline" href="#">Interest-Based Ads</a>
+</div>
+<p class="text-xs">© 2024 Titan Store, Inc. or its affiliates</p>
+</div>
+</div>
+</footer>
+<script src="js/stitch-main-v2.js"></script>
+</body></html>

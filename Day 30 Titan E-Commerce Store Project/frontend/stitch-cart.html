@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TITAN STORE - Shopping Cart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff9900",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#231b0f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Header / TopNavBar -->
+<header class="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+<!-- Logo & Brand -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 shrink-0">
+<span class="material-symbols-outlined text-primary text-3xl">diamond</span>
+<h1 class="text-xl font-black tracking-tighter uppercase">Titan Store</h1>
+</div>
+<!-- Search Bar -->
+<div class="hidden md:flex flex-1 min-w-[300px] lg:min-w-[500px]">
+<div class="relative w-full group">
+<input class="w-full h-10 pl-4 pr-12 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Search Titan Store..." type="text"/>
+<button class="absolute right-0 top-0 h-10 w-12 bg-primary text-white rounded-r-lg flex items-center justify-center hover:bg-orange-600 transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Nav Actions -->
+<nav class="flex items-center gap-6">
+<div class="hidden lg:flex items-center gap-5 text-sm font-medium">
+<a class="hover:text-primary transition-colors" href="#">Deals</a>
+<a class="hover:text-primary transition-colors" href="#">Best Sellers</a>
+<a class="hover:text-primary transition-colors" href="#">Customer Service</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex flex-col items-center gap-0.5 hover:text-primary relative group">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-[10px] font-bold uppercase">Cart</span>
+<span class="absolute -top-1 -right-1 bg-primary text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">2</span>
+</button>
+<button class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 pr-3 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<div class="w-8 h-8 rounded-full bg-slate-300 overflow-hidden">
+<img alt="User Profile" data-alt="Portrait of a smiling user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMnYksYBMN1LSMvCApQp5wcS3m7_bLydRWc7vJv7gD8F52rwAwetiB6ujnlBbzk3fGZZK8Jbc0WSZRVsqIsVRUBAhhIvOX34O6yz86XayLsclmWs5gqDzWGWxopOhBL_2GKhwsyCxWxJ5zYNgOeh1giwY4aaAn-mKqX4T9WM5VdL_YaxFL_VY9PjEwCoy7rRlN6BRHCg7dC6QKWGuSqPyar5stbA_nKtU7r5kLvGw6RAUCzdrKXdo_jkEOAk_unW9xNtTu5juEJ5zk"/>
+</div>
+<span class="text-xs font-semibold">Account</span>
+</button>
+</div>
+</nav>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-8">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Main Cart Content (70%) -->
+<div class="flex-1">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-end border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+<h2 class="text-3xl font-bold">Shopping Cart</h2>
+<span class="text-slate-500 text-sm">Price</span>
+</div>
+<!-- Cart Items List -->
+<div class="space-y-6">
+<!-- Item 1 -->
+<div class="flex flex-col sm:flex-row gap-6 border-b border-slate-100 dark:border-slate-800 pb-6 last:border-0 last:pb-0">
+<div class="w-full sm:w-44 h-44 bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Premium wireless noise cancelling headphones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUAgzkqLMfv0d6LfFCbl5byu23OuXAzCG-0ZZpOWASOlpPmrd6lzIpwh-8L8mov82isBgAll5Wq99lgA_0ZcI7gnmgoSqqfUJD5XEZZTe4qjCCt7kpwO1jru7WseX5_OqQVXhAFFM2w43p0ZMaHdfNe-c-5oKxl30SZ24RWFK8dtdRJq2HgMZNDDYPDZQ2sAjotuMr171lcfxCAcL47v2ZyUJ7YH2cs1gvP5eq5mS_xYsLTSDswOT_I_6ybVVl0aew1z9muVmfLOUg"/>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div>
+<div class="flex justify-between gap-4">
+<h3 class="text-lg font-semibold leading-tight hover:text-primary cursor-pointer transition-colors line-clamp-2">Titan Pro Wireless Noise Cancelling Over-Ear Headphones, 40h Battery Life</h3>
+<p class="text-xl font-bold">₹24,817</p>
+</div>
+<div class="flex items-center gap-1 mt-1">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm text-slate-300">star</span>
+</div>
+<span class="text-xs text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">1,245 ratings</span>
+</div>
+<p class="text-green-600 text-sm font-medium mt-1 italic">In Stock</p>
+<p class="text-xs text-slate-500 mt-1">Eligible for FREE Shipping &amp; FREE Returns</p>
+</div>
+<div class="flex items-center gap-4 mt-4">
+<div class="flex items-center border border-slate-300 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 px-2 py-1 gap-2">
+<span class="text-xs font-medium text-slate-500">Qty:</span>
+<select class="bg-transparent border-none text-sm font-bold focus:ring-0 py-0 pl-0 pr-6">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+</select>
+</div>
+<div class="h-4 w-[1px] bg-slate-300 dark:bg-slate-700"></div>
+<button class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Delete</button>
+<button class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Save for later</button>
+<button class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Compare</button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col sm:flex-row gap-6 border-b border-slate-100 dark:border-slate-800 pb-6 last:border-0 last:pb-0">
+<div class="w-full sm:w-44 h-44 bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Mechanical gaming keyboard with RGB lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPht9PZYw-6mCKo44C5YQaCTRDFnG1-AempcGUP6vK7E2uFtG8XzbLqoZzqjENn9bEF39xAxSlEZUo6W8eIRA4xE3RsQ0HubF0hH9qVTyZL0dlJudKqKciTFnb545UIsb1CmLx7Cr_paWCLKBCRCcPutHX1jgT4bo_aDkR9u1LmHJpulYps-5MK1FKPyMXQTlbUhjGi_FE5Hl7FJkG1ff05cV-VrwS12mbjDypI0cNI8YfwehfwPiZ54BwROBb8ZzEV_eogpDF98kk"/>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div>
+<div class="flex justify-between gap-4">
+<h3 class="text-lg font-semibold leading-tight hover:text-primary cursor-pointer transition-colors line-clamp-2">Mechanical Gaming Keyboard RGB Backlit - Titan Stealth Series (Blue Switches)</h3>
+<p class="text-xl font-bold">₹10,749</p>
+</div>
+<div class="flex items-center gap-1 mt-1">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<span class="text-xs text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">856 ratings</span>
+</div>
+<p class="text-green-600 text-sm font-medium mt-1 italic">In Stock</p>
+<p class="text-xs text-slate-500 mt-1">Gift options available</p>
+</div>
+<div class="flex items-center gap-4 mt-4">
+<div class="flex items-center border border-slate-300 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 px-2 py-1 gap-2">
+<span class="text-xs font-medium text-slate-500">Qty:</span>
+<select class="bg-transparent border-none text-sm font-bold focus:ring-0 py-0 pl-0 pr-6">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+</select>
+</div>
+<div class="h-4 w-[1px] bg-slate-300 dark:bg-slate-700"></div>
+<button class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Delete</button>
+<button class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Save for later</button>
+<button class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Compare</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Subtotal -->
+<div class="mt-8 text-right border-t border-slate-200 dark:border-slate-800 pt-6">
+<p class="text-lg">Subtotal (2 items): <span class="font-bold text-xl">₹35,566</span></p>
+</div>
+</div>
+</div>
+<!-- Sidebar / Order Summary (30%) -->
+<aside class="w-full lg:w-80 space-y-4">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 sticky top-24">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+<p class="text-xs text-slate-600 dark:text-slate-400 leading-tight">Your order qualifies for <span class="text-green-600 font-bold">FREE Shipping</span>. Select this option at checkout.</p>
+</div>
+<div class="mb-6">
+<p class="text-xl mb-1">Subtotal (2 items):</p>
+<p class="text-2xl font-bold">₹35,566</p>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<input class="rounded border-slate-300 text-primary focus:ring-primary" id="gift" type="checkbox"/>
+<label class="text-sm cursor-pointer" for="gift">This order contains a gift</label>
+</div>
+<button onclick="proceedToCheckout()" class="w-full py-3 bg-primary hover:bg-orange-600 text-slate-900 font-bold rounded-lg transition-colors shadow-md border border-orange-400">
+                        Proceed to checkout
+                    </button>
+<!-- Extra sidebar feature -->
+<div class="mt-6 border-t border-slate-100 dark:border-slate-800 pt-4">
+<button class="w-full flex items-center justify-between text-sm group">
+<span>Promotions &amp; Deals</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="bg-primary/10 border border-primary/20 p-4 rounded-xl">
+<h4 class="font-bold text-sm text-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">info</span>
+                        Titan Plus Member?
+                    </h4>
+<p class="text-xs text-slate-700 dark:text-slate-300">Get an extra 5% back on this order with your Titan Signature Card.</p>
+</div>
+</aside>
+</div>
+<!-- Recommendations Carousel -->
+<section class="mt-12 bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
+<h3 class="text-xl font-bold mb-6">Customers who bought items in your cart also bought</h3>
+<div class="relative group/carousel">
+<div class="flex overflow-x-auto gap-6 pb-4 no-scrollbar scroll-smooth">
+<!-- Card 1 -->
+<div class="min-w-[200px] w-[200px] group cursor-pointer">
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden mb-3">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Ergonomic mouse with high precision sensor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPvWlK3Swv1XUR31vL5eEy3DqnyZY-tIVvGL9GfVRh-TN5eWHsmepeIP3cjDrIx6mD6pCw-k2uzWnF_7-pOOWN8doZCE2uBrnbkMAtzoJqwjT__H3nth7Nvq5HGXfwLwvPn4p7yOPKAoHTxCXiApcK09xbO79Mo0DqeATZ2Y9EdgM0CbXdUscFdnNK2AwsxGku5JIqXKgupgcc87INe2Z3sFTj4ajk_JM8Vj-lWGj7IJyBOXblOnH1B-IqP3aeQxSG5J0pNQnm6cOZ"/>
+</div>
+<h4 class="text-sm font-medium line-clamp-2 hover:text-primary transition-colors">Titan X Pro Ergonomic Mouse - 16,000 DPI</h4>
+<div class="flex text-primary mt-1">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star_half</span>
+</div>
+<p class="text-lg font-bold mt-1">₹4,979</p>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[200px] w-[200px] group cursor-pointer">
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden mb-3">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Microfiber cleaning cloth for electronics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEcK9q3kPyPqR9lADbnyMnVLkrJsCnfEuCtSV_Lyby61cd2yt9raH2mTHoRx2-3wmrOk5d2JIfvVFTJQr_KVuH_yuK2_v7GZhv2EJqwPxOnEBY0unndhoNDtR0cY61K2y8vSSgB5RjBR3P7dyVw6Xt9JSOXrxNLZxrhqC0_nOS7v4TfF-f-CRcQXCm7nzqIDFR3yNvexmcMVjCH5gUI1cAavqay_TaXJdIlJcTU0AZv5QhMGk-fjXeQg8wlRue9pOO7H_U58pV6Ivg"/>
+</div>
+<h4 class="text-sm font-medium line-clamp-2 hover:text-primary transition-colors">Premium Microfiber Cleaning Cloth Pack</h4>
+<div class="flex text-primary mt-1">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<p class="text-lg font-bold mt-1">₹1,078</p>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[200px] w-[200px] group cursor-pointer">
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden mb-3">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Tablet stand with adjustable height" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4csdyZ_ZAU6cxdeCvyv6YKVGprKDvS6s1XDa0nhn52LwgnX1EC2bmdMUBusUEuKzL00Kn1JxVTPGSRpkpfCoibdbn6Yh9O_sM_dLivH6PjswVuyuBsR8ZCJDSWmhM--MPk1cITdMh9q1vJlLrqr3MYe8403TMtwyvSpZn8_JovzENVGKpw0yafIdorqANkiruYGZLna7VA5aON5n4wJ8O-XATc2K7v3rbm9B-5bEICb165LnvLOEULwxN8s0YrLQhQuHyPPEP4-AY"/>
+</div>
+<h4 class="text-sm font-medium line-clamp-2 hover:text-primary transition-colors">Adjustable Desktop Tablet &amp; Phone Stand</h4>
+<div class="flex text-primary mt-1">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm text-slate-300">star</span>
+</div>
+<p class="text-lg font-bold mt-1">₹2,034</p>
+</div>
+<!-- Card 4 -->
+<div class="min-w-[200px] w-[200px] group cursor-pointer">
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden mb-3">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="USB-C multi-port hub adapter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjMW6jix8ZsBD648V3fBzWMw7wmXwZYYs-7Q1lMH6xl5HXiqeAxXHTlPVFs6MRYQ2A3KeC2O8piGznyGkhJK4ArDNGJ3lae6JAomykyjdEct9ixaReZ0lI2nEFk3ZDs6ev__7YXrwvL6cJ5p1nVy-nWRJkKXG_AuIAv0Vz7p3jCsS3gafs4VTezTc3y9VAKrzM4dP1sFEMffV6KEeSap0BdtUaRXfjP00CJ7E5PvLW27UK1bR4E7ZMkHT3blEuq8fLo9Xd5XnRmn3W"/>
+</div>
+<h4 class="text-sm font-medium line-clamp-2 hover:text-primary transition-colors">Titan Connect 7-in-1 USB-C Hub Adapter</h4>
+<div class="flex text-primary mt-1">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star_half</span>
+</div>
+<p class="text-lg font-bold mt-1">₹3,735</p>
+</div>
+<!-- Card 5 -->
+<div class="min-w-[200px] w-[200px] group cursor-pointer">
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden mb-3">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Instant film camera classic design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGMXAJ99_X9WdZiC5mMoJic4bH-hXu_O7dVyyAUxwPbqju_3GBBLLNn0s0lvq0hRvoirFt25WHitV81hiKjkRxcuzyMhw4SItVU5fmmaD6L0dmnvh-r3bM4G0yHWaJYmiKc9GNa1ZcQf7ohNrEmnl5aBRHf_O7r7nhjihrtwWzMiHfQp-Yh-OH73SrKm9Ef_GFZ03aIsAlQbs-hsLBRO1j3M7cQ1p6elMCK-Cm-eyVfowUFELQh-82QvwvpLR7RuKoa3Uf7oTHm1RP"/>
+</div>
+<h4 class="text-sm font-medium line-clamp-2 hover:text-primary transition-colors">Classic Instant Film Camera - White Edition</h4>
+<div class="flex text-primary mt-1">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm text-slate-300">star</span>
+</div>
+<p class="text-lg font-bold mt-1">₹7,469</p>
+</div>
+</div>
+<!-- Carousel Nav -->
+<button class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</section>
+</main>
+<footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 mt-12">
+<div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="space-y-4">
+<h5 class="font-bold text-sm uppercase tracking-wider">Get to Know Us</h5>
+<ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+<li><a class="hover:underline" href="#">Careers</a></li>
+<li><a class="hover:underline" href="#">About Titan Store</a></li>
+<li><a class="hover:underline" href="#">Sustainability</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="font-bold text-sm uppercase tracking-wider">Make Money with Us</h5>
+<ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+<li><a class="hover:underline" href="#">Sell on Titan</a></li>
+<li><a class="hover:underline" href="#">Affiliate Program</a></li>
+<li><a class="hover:underline" href="#">Your Account</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="font-bold text-sm uppercase tracking-wider">Titan Payment Products</h5>
+<ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+<li><a class="hover:underline" href="#">Business Card</a></li>
+<li><a class="hover:underline" href="#">Shop with Points</a></li>
+<li><a class="hover:underline" href="#">Currency Converter</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="font-bold text-sm uppercase tracking-wider">Let Us Help You</h5>
+<ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+<li><a class="hover:underline" href="#">Your Account</a></li>
+<li><a class="hover:underline" href="#">Shipping Rates</a></li>
+<li><a class="hover:underline" href="#">Help Center</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
+<div class="flex items-center justify-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">diamond</span>
+<span class="text-sm font-bold uppercase tracking-tight">Titan Store</span>
+</div>
+<p class="text-xs text-slate-500">© 2024 Titan Store, Inc. All rights reserved.</p>
+</div>
+</footer>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script src="js/stitch-cart.js"></script>
+</body></html>

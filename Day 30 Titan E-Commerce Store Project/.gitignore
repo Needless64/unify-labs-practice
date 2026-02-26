@@ -1,0 +1,40 @@
+<<<<<<< HEAD
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+=======
+# Environment variables
+.env
+.env.local
+
+# Dependencies
+node_modules/
+
+# Vercel
+.vercel/
+>>>>>>> 284fbda8ba2bd0901e3097f59bc7139617596da1
+
+# Logs
+*.log
+npm-debug.log*
+
+<<<<<<< HEAD
+# Build
+dist/
+build/
+=======
+# OS files
+.DS_Store
+Thumbs.db
+>>>>>>> 284fbda8ba2bd0901e3097f59bc7139617596da1
