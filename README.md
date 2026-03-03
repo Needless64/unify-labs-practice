@@ -40,42 +40,6 @@ A premium, Twitter-inspired blogging platform featuring:
 
 ---
 
-### Day 28
-Web development practice project.
-
----
-
-### Day 27
-Web development practice project.
-
----
-
-### Day 26
-Web development practice project.
-
----
-
-### Day 03
-HTML and CSS fundamentals with styling practice.
-
-**Tech Stack:** HTML, CSS
-
----
-
-### Day 02
-HTML forms and user input handling.
-
-**Tech Stack:** HTML
-
----
-
-### Day 01
-Introduction to HTML structure and basic elements.
-
-**Tech Stack:** HTML
-
----
-
 ## 🚀 Latest Updates
 
 ### Vercel Deployment - Day 30 (Latest)
