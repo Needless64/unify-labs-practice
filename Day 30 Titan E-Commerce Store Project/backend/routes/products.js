@@ -2,147 +2,65 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 
-// GET /api/products - Get all products with optional filters
+// Get all products
 router.get('/', async (req, res) => {
-  try {
-    const { category, minPrice, maxPrice, search } = req.query;
-    
-    const filters = {};
-    if (category) filters.category = category;
-    if (minPrice) filters.minPrice = minPrice;
-    if (maxPrice) filters.maxPrice = maxPrice;
-    if (search) filters.search = search;
-
-    const products = await Product.findAll(filters);
-    
-    res.json({
-      success: true,
-      count: products.length,
-      data: products
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
-  }
-});
-
-// GET /api/products/search?q=query - Search products
-router.get('/search', async (req, res) => {
-  try {
-    const { q } = req.query;
-    
-    if (!q) {
-      return res.status(400).json({
-        success: false,
-        error: 'Search query is required'
-      });
+    try {
+        const products = await Product.findAll();
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: 'Error fetching products', error: error.message });
     }
-
-    const products = await Product.search(q);
-    
-    res.json({
-      success: true,
-      count: products.length,
-      data: products
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
-  }
 });
 
-// GET /api/products/category/:category - Get products by category
-router.get('/category/:category', async (req, res) => {
-  try {
-    const { category } = req.params;
-    const products = await Product.findByCategory(category);
-    
-    res.json({
-      success: true,
-      count: products.length,
-      data: products
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
-  }
-});
-
-// GET /api/products/:id - Get single product
+// Get single product
 router.get('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findById(id);
-    
-    res.json({
-      success: true,
-      data: product
-    });
-  } catch (error) {
-    res.status(404).json({
-      success: false,
-      error: error.message
-    });
-  }
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json(product);
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        res.status(500).json({ message: 'Error fetching product', error: error.message });
+    }
 });
 
-// POST /api/products - Create new product (admin)
+// Create product
 router.post('/', async (req, res) => {
-  try {
-    const product = await Product.create(req.body);
-    
-    res.status(201).json({
-      success: true,
-      data: product
-    });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error: error.message
-    });
-  }
+    try {
+        const product = await Product.create(req.body);
+        res.status(201).json(product);
+    } catch (error) {
+        console.error('Error creating product:', error);
+        res.status(500).json({ message: 'Error creating product', error: error.message });
+    }
 });
 
-// PUT /api/products/:id - Update product (admin)
+// Update product
 router.put('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.update(id, req.body);
-    
-    res.json({
-      success: true,
-      data: product
-    });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error: error.message
-    });
-  }
+    try {
+        const product = await Product.update(req.params.id, req.body);
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json(product);
+    } catch (error) {
+        console.error('Error updating product:', error);
+        res.status(500).json({ message: 'Error updating product', error: error.message });
+    }
 });
 
-// DELETE /api/products/:id - Delete product (admin)
+// Delete product
 router.delete('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await Product.delete(id);
-    
-    res.json({
-      success: true,
-      message: result.message
-    });
-  } catch (error) {
-    res.status(404).json({
-      success: false,
-      error: error.message
-    });
-  }
+    try {
+        await Product.delete(req.params.id);
+        res.json({ message: 'Product deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).json({ message: 'Error deleting product', error: error.message });
+    }
 });
 
 module.exports = router;

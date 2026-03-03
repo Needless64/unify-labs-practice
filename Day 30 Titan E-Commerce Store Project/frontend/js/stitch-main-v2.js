@@ -83,7 +83,7 @@
             cart.push({
                 id: productData.id,
                 name: productData.name,
-                price: productData.price,
+                price: parseFloat(productData.price) || 0, // Ensure price is a number
                 image: productData.image,
                 quantity: 1
             });

@@ -28,13 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
     updateCartBadge();
     setupNavigation();
-    
-    // Force update sidebar after a short delay to ensure DOM is ready
-    setTimeout(() => {
-        const cart = JSON.parse(localStorage.getItem('titanCart') || '[]');
-        const subtotal = cart.reduce((sum, item) => sum + ((item.price || 0) * item.quantity), 0);
-        updateSummary(subtotal, 0, subtotal);
-    }, 100);
 });
 
 function setupNavigation() {
@@ -58,6 +51,15 @@ function setupNavigation() {
     });
 }
 
+function formatINR(amount) {
+    // Convert to number and format with 2 decimal places
+    const num = parseFloat(amount) || 0;
+    return num.toLocaleString('en-IN', { 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 2 
+    });
+}
+
 function renderCart() {
     const cart = JSON.parse(localStorage.getItem('titanCart') || '[]');
     const cartContainer = document.getElementById('cartItems');
@@ -66,18 +68,27 @@ function renderCart() {
     if (cart.length === 0) {
         if (cartContainer) cartContainer.style.display = 'none';
         if (emptyCart) emptyCart.style.display = 'block';
-        updateSummary(0, 0, 0);
+        updateSummary(0, 0);
         return;
     }
     
     if (cartContainer) cartContainer.style.display = 'block';
     if (emptyCart) emptyCart.style.display = 'none';
     
+    // Calculate totals - ensure all values are numbers
+    let subtotal = 0;
+    let totalItems = 0;
+    
     if (cartContainer) {
         cartContainer.innerHTML = cart.map(item => {
-            // Handle null or undefined prices - use 0 as fallback
-            const itemPrice = item.price || 0;
-            const totalPrice = itemPrice * item.quantity;
+            // Parse price and quantity as numbers
+            const itemPrice = parseFloat(item.price) || 0;
+            const itemQuantity = parseInt(item.quantity) || 0;
+            const itemTotal = itemPrice * itemQuantity;
+            
+            // Add to running totals
+            subtotal += itemTotal;
+            totalItems += itemQuantity;
             
             return `
             <div class="flex gap-4 p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
@@ -91,28 +102,23 @@ function renderCart() {
                     <p class="text-sm text-green-600 font-semibold mb-3">In Stock</p>
                     <div class="flex items-center gap-4">
                         <div class="flex items-center border border-slate-300 dark:border-slate-700 rounded-lg">
-                            <button onclick="updateQuantity('${item.id}', ${item.quantity - 1})" class="px-3 py-1 hover:bg-slate-100 dark:hover:bg-slate-800">-</button>
-                            <span class="px-4 py-1 border-x border-slate-300 dark:border-slate-700">${item.quantity}</span>
-                            <button onclick="updateQuantity('${item.id}', ${item.quantity + 1})" class="px-3 py-1 hover:bg-slate-100 dark:hover:bg-slate-800">+</button>
+                            <button onclick="updateQuantity('${item.id}', ${itemQuantity - 1})" class="px-3 py-1 hover:bg-slate-100 dark:hover:bg-slate-800">-</button>
+                            <span class="px-4 py-1 border-x border-slate-300 dark:border-slate-700">${itemQuantity}</span>
+                            <button onclick="updateQuantity('${item.id}', ${itemQuantity + 1})" class="px-3 py-1 hover:bg-slate-100 dark:hover:bg-slate-800">+</button>
                         </div>
                         <button onclick="removeItem('${item.id}')" class="text-sm text-blue-600 hover:text-red-600 hover:underline">Delete</button>
                     </div>
                 </div>
                 <div class="text-right">
-                    <div class="text-2xl font-bold text-primary">₹${totalPrice.toFixed(2)}</div>
-                    <div class="text-sm text-slate-500">₹${itemPrice.toFixed(2)} each</div>
+                    <div class="text-2xl font-bold text-primary">₹${formatINR(itemTotal)}</div>
+                    <div class="text-sm text-slate-500">₹${formatINR(itemPrice)} each</div>
                 </div>
             </div>
         `;
         }).join('');
     }
     
-    const subtotal = cart.reduce((sum, item) => sum + ((item.price || 0) * item.quantity), 0);
-    const tax = subtotal * 0.1;
-    const total = subtotal + tax;
-    
-    updateSummary(subtotal, tax, total);
-    updateItemCount(cart.length);
+    updateSummary(subtotal, totalItems);
 }
 
 function renderStars(rating) {
@@ -125,6 +131,33 @@ function renderStars(rating) {
         stars += '<span class="material-symbols-outlined text-slate-300 text-sm">star</span>';
     }
     return stars;
+}
+
+function updateSummary(subtotal, totalItems) {
+    // Format the subtotal
+    const formattedSubtotal = `₹${formatINR(subtotal)}`;
+    const itemText = totalItems === 1 ? 'item' : 'items';
+    const itemCountText = `Subtotal (${totalItems} ${itemText}):`;
+    
+    // Update main subtotal (bottom of cart items)
+    const mainSubtotalText = document.getElementById('mainSubtotalText');
+    const mainSubtotal = document.getElementById('mainSubtotal');
+    if (mainSubtotalText) {
+        mainSubtotalText.innerHTML = `${itemCountText} <span class="font-bold text-xl" id="mainSubtotal">${formattedSubtotal}</span>`;
+    } else if (mainSubtotal) {
+        mainSubtotal.textContent = formattedSubtotal;
+    }
+    
+    // Update sidebar subtotal
+    const sidebarItemCount = document.getElementById('sidebarItemCount');
+    const sidebarSubtotal = document.getElementById('sidebarSubtotal');
+    
+    if (sidebarItemCount) {
+        sidebarItemCount.textContent = itemCountText;
+    }
+    if (sidebarSubtotal) {
+        sidebarSubtotal.textContent = formattedSubtotal;
+    }
 }
 
 function updateQuantity(productId, newQuantity) {
@@ -152,113 +185,18 @@ function removeItem(productId) {
     showNotification('Item removed from cart');
 }
 
-function updateSummary(subtotal, tax, total) {
-    const cart = JSON.parse(localStorage.getItem('titanCart') || '[]');
-    const itemCount = cart.length;
-    
-    // Format prices with commas for INR
-    const formatINR = (amount) => {
-        return '₹' + amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    };
-    
-    // Update ALL price elements on the page
-    document.querySelectorAll('p, div, span').forEach(el => {
-        const text = el.textContent.trim();
-        
-        // Skip if element is too large
-        if (text.length > 200) return;
-        
-        // Replace any dollar signs with rupee
-        if (text.includes('$')) {
-            // Check if this is a price element (contains $ followed by numbers)
-            if (text.match(/\$[\d,]+\.?\d*/)) {
-                // Determine which price this is based on context
-                const parentText = el.parentElement?.textContent || '';
-                
-                if (parentText.includes('Subtotal') || text.match(/^\$[\d,]+\.?\d*$/) && el.previousElementSibling?.textContent.includes('Subtotal')) {
-                    el.textContent = formatINR(subtotal);
-                } else if (parentText.includes('Tax') || text.match(/^\$[\d,]+\.?\d*$/) && el.previousElementSibling?.textContent.includes('Tax')) {
-                    el.textContent = formatINR(tax);
-                } else if (parentText.includes('Total') || text.match(/^\$[\d,]+\.?\d*$/) && el.previousElementSibling?.textContent.includes('Total')) {
-                    el.textContent = formatINR(total);
-                } else {
-                    // Generic dollar to rupee replacement
-                    el.textContent = text.replace(/\$[\d,]+\.?\d*/g, (match) => {
-                        const amount = parseFloat(match.replace('$', '').replace(',', ''));
-                        return formatINR(amount);
-                    });
-                }
-            }
-        }
-        
-        // Update item count
-        if (text.includes('items)') || text.includes('item)')) {
-            el.textContent = text.replace(/\(\d+ items?\)/, `(${itemCount} item${itemCount !== 1 ? 's' : ''})`);
-        }
-    });
-    
-    // Specifically target sidebar summary elements
-    const summaryElements = document.querySelectorAll('aside p, .bg-white p, .dark\\:bg-slate-900 p');
-    summaryElements.forEach(el => {
-        const text = el.textContent.trim();
-        if (text.match(/^\$[\d,]+\.?\d*$/)) {
-            const prevSibling = el.previousElementSibling;
-            if (prevSibling) {
-                const label = prevSibling.textContent.toLowerCase();
-                if (label.includes('subtotal')) {
-                    el.textContent = formatINR(subtotal);
-                } else if (label.includes('tax')) {
-                    el.textContent = formatINR(tax);
-                } else if (label.includes('total')) {
-                    el.textContent = formatINR(total);
-                }
-            }
-        }
-    });
-}
-
-function updateItemCount(count) {
-    const countEl = document.getElementById('itemCount');
-    if (countEl) countEl.textContent = `(${count} items)`;
-}
-
 function updateCartBadge() {
     const cart = JSON.parse(localStorage.getItem('titanCart') || '[]');
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const totalItems = cart.reduce((sum, item) => sum + parseInt(item.quantity || 0), 0);
     
-    // Update all cart badges on the page
-    // Method 1: Find buttons with "CART" text
-    document.querySelectorAll('button').forEach(btn => {
-        const btnText = btn.textContent;
-        if (btnText.includes('CART') || btnText.includes('Cart')) {
-            // Look for span with number inside button
-            const spans = btn.querySelectorAll('span');
-            spans.forEach(span => {
-                const spanText = span.textContent.trim();
-                if (!isNaN(parseInt(spanText)) && spanText.length < 4) {
-                    span.textContent = totalItems;
-                }
-            });
-            
-            // Update "CART X" text format
-            if (btnText.match(/CART\s+\d+/i)) {
-                btn.childNodes.forEach(node => {
-                    if (node.nodeType === Node.TEXT_NODE) {
-                        node.textContent = node.textContent.replace(/CART\s+\d+/i, `CART ${totalItems}`);
-                    }
-                });
-            }
-        }
-    });
-    
-    // Method 2: Find any span with cart badge classes or small numbers
+    // Find all cart badge elements
     document.querySelectorAll('span').forEach(span => {
-        const parent = span.parentElement;
-        if (parent && parent.querySelector('.material-symbols-outlined')) {
-            const iconText = parent.querySelector('.material-symbols-outlined')?.textContent;
-            if (iconText && iconText.includes('shopping_cart')) {
-                const spanText = span.textContent.trim();
-                if (!isNaN(parseInt(spanText)) && spanText.length < 4 && span.classList.contains('bg-primary')) {
+        // Check if this span is a cart badge (has bg-primary class and is near a shopping_cart icon)
+        if (span.classList.contains('bg-primary') && span.classList.contains('rounded-full')) {
+            const parent = span.closest('button');
+            if (parent) {
+                const hasCartIcon = parent.querySelector('.material-symbols-outlined');
+                if (hasCartIcon && hasCartIcon.textContent.includes('shopping_cart')) {
                     span.textContent = totalItems;
                 }
             }

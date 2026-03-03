@@ -1,232 +1,208 @@
-<<<<<<< HEAD
-# Titan E-Commerce Store
+# Day 30: Titan E-Commerce Store
 
-A professional, fully-functional e-commerce website built with modern web technologies.
+A full-stack e-commerce application built with vanilla JavaScript, Node.js, Express, and PostgreSQL (Neon), deployed on Vercel.
 
-## Features
+## 🚀 Live Demo
 
-- **Professional UI/UX**: Amazon-inspired design with clean, intuitive interface
-- **Product Browsing**: Homepage with featured products, filters, and search
-- **Product Details**: Detailed product pages with images, descriptions, and reviews
-- **Shopping Cart**: Full cart functionality with add/remove items, quantity updates
-- **Checkout Flow**: Multi-step checkout process with shipping and payment
-- **INR Currency**: All prices displayed in Indian Rupees (₹)
-- **Responsive Design**: Works seamlessly across all devices
-- **Real-time Updates**: Cart badge updates, notifications, and dynamic content
+**Frontend:** [https://titan-ecommerce-store.vercel.app/frontend/stitch-homepage.html](https://titan-ecommerce-store.vercel.app/frontend/stitch-homepage.html)
 
-## Tech Stack
+## ✨ Features
+
+- **Product Catalog**: Browse 8+ premium products with detailed information
+- **Shopping Cart**: Add/remove items with real-time subtotal calculations
+- **Responsive Design**: Mobile-first design using Tailwind CSS
+- **Database Integration**: PostgreSQL database hosted on Neon
+- **RESTful API**: Express.js backend with product and order endpoints
+- **Persistent Storage**: Cart data stored in localStorage
+
+## 🛠️ Tech Stack
 
 ### Frontend
 - HTML5, CSS3 (Tailwind CSS)
 - Vanilla JavaScript (ES6+)
-- Material Symbols Icons
+- Material Icons
 - Google Fonts (Inter)
 
 ### Backend
 - Node.js
 - Express.js
-- MongoDB (with Mongoose)
-- RESTful API architecture
+- PostgreSQL (Neon Database)
+- CORS enabled for cross-origin requests
 
-## Project Structure
+### Deployment
+- **Platform**: Vercel
+- **Database**: Neon PostgreSQL
+- **Environment**: Production
+
+## 📁 Project Structure
 
 ```
 Day 30 Titan E-Commerce Store Project/
 ├── frontend/
-│   ├── stitch-homepage.html      # Main homepage
-│   ├── stitch-product.html       # Product detail page
-│   ├── stitch-cart.html          # Shopping cart
-│   ├── stitch-checkout-v2.html   # Checkout page
+│   ├── css/
+│   │   └── styles.css
 │   ├── js/
-│   │   ├── stitch-main-v2.js     # Homepage logic
-│   │   ├── stitch-product.js     # Product page logic
-│   │   ├── stitch-cart.js        # Cart logic
-│   │   └── stitch-checkout.js    # Checkout logic
-│   └── css/
-│       └── styles.css            # Custom styles
+│   │   ├── stitch-main-v2.js      # Homepage functionality
+│   │   ├── stitch-cart.js         # Cart page logic
+│   │   ├── stitch-product.js      # Product detail page
+│   │   └── stitch-checkout.js     # Checkout functionality
+│   ├── stitch-homepage.html
+│   ├── stitch-cart.html
+│   ├── stitch-product.html
+│   └── stitch-checkout-v2.html
 ├── backend/
-│   ├── server.js                 # Express server
 │   ├── config/
-│   │   ├── database.js           # MongoDB connection
-│   │   └── mockDatabase.js       # Mock data
+│   │   └── database.js            # PostgreSQL connection
 │   ├── models/
-│   │   ├── Product.js            # Product schema
-│   │   └── Order.js              # Order schema
+│   │   ├── Product.js
+│   │   └── Order.js
 │   ├── routes/
-│   │   ├── products.js           # Product routes
-│   │   └── orders.js             # Order routes
-│   └── scripts/
-│       └── seedProducts.js       # Database seeding
-└── README.md
-
+│   │   ├── products.js
+│   │   └── orders.js
+│   ├── scripts/
+│   │   ├── setupDatabase.js       # Database initialization
+│   │   └── seedProducts.js        # Seed sample data
+│   ├── schema.sql                 # Database schema
+│   └── server.js                  # Express server
+└── vercel.json                    # Vercel configuration
 ```
 
-## Getting Started
+## 🔧 Setup & Installation
 
 ### Prerequisites
 - Node.js (v14 or higher)
-- MongoDB (local or Atlas)
+- PostgreSQL database (or Neon account)
+- Vercel account (for deployment)
 
-### Installation
+### Local Development
 
-1. **Clone or download the project**
+1. **Clone the repository**
+```bash
+git clone https://github.com/Needless64/unifylabs.git
+cd "Day 30 Titan E-Commerce Store Project"
+```
 
-2. **Setup Backend**
-   ```bash
-   cd backend
-   npm install
-   ```
+2. **Install backend dependencies**
+```bash
+cd backend
+npm install
+```
 
-3. **Configure Environment**
-   - Copy `.env.example` to `.env`
-   - Update MongoDB connection string if needed
+3. **Configure environment variables**
+```bash
+cp .env.example .env
+# Edit .env with your database credentials
+```
 
-4. **Start Backend Server**
-   ```bash
-   npm start
-   ```
-   Server runs on `http://localhost:5000`
+4. **Setup database**
+```bash
+node scripts/setupDatabase.js
+node scripts/seedProducts.js
+```
 
-5. **Open Frontend**
-   - Open `frontend/stitch-homepage.html` in your browser
-   - Or use a local server (recommended):
-     ```bash
-     # Using Python
-     cd frontend
-     python -m http.server 8000
-     
-     # Using Node.js http-server
-     npx http-server frontend -p 8000
-     ```
+5. **Start the server**
+```bash
+npm start
+```
 
-## Usage
+6. **Open frontend**
+Open `frontend/stitch-homepage.html` in your browser
 
-### Shopping Flow
-1. Browse products on the homepage
-2. Use filters (category, price range) and search
-3. Click on a product to view details
-4. Add items to cart
-5. View cart and adjust quantities
-6. Proceed to checkout
-7. Complete order
+## 🌐 Deployment
 
-### Key Features
+### Vercel Deployment
 
-**Homepage**
-- Product grid with images, prices, ratings
-- Category filters (Electronics, Fashion, etc.)
-- Price range filter
-- Search functionality
-- Cart badge with item count
+1. **Install Vercel CLI**
+```bash
+npm i -g vercel
+```
 
-**Product Page**
-- Large product images
-- Detailed descriptions
-- Customer reviews and ratings
-- Add to cart with quantity selection
-- Related products
+2. **Deploy**
+```bash
+vercel --prod
+```
 
-**Shopping Cart**
-- View all cart items
-- Update quantities (+/- buttons)
-- Remove items
-- See subtotal, tax, and total
-- Proceed to checkout
+3. **Configure Environment Variables**
+Add your Neon database credentials in Vercel dashboard:
+- `DATABASE_URL`
 
-**Checkout**
-- Shipping address form
-- Delivery options
-- Order summary
-- Secure payment flow
+## 🗄️ Database Schema
 
-## API Endpoints
+### Products Table
+```sql
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    image_url TEXT,
+    category VARCHAR(100),
+    stock INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
-### Products
-- `GET /api/products` - Get all products
-- `GET /api/products/:id` - Get single product
-- `POST /api/products` - Create product (admin)
-- `PUT /api/products/:id` - Update product (admin)
-- `DELETE /api/products/:id` - Delete product (admin)
+### Orders Table
+```sql
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(255) NOT NULL,
+    customer_email VARCHAR(255) NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(50) DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
-### Orders
-- `GET /api/orders` - Get all orders
-- `GET /api/orders/:id` - Get single order
-- `POST /api/orders` - Create order
-- `PUT /api/orders/:id` - Update order status
+## 🎯 Key Features Implemented
 
-## Currency
+### Cart Functionality
+- ✅ Add products to cart
+- ✅ Update quantities
+- ✅ Remove items
+- ✅ Real-time subtotal calculation (fixed INR formatting)
+- ✅ Persistent cart using localStorage
+- ✅ Cart badge counter
 
-All prices are in Indian Rupees (₹). Conversion rate used: 1 USD = 83 INR
+### Product Display
+- ✅ Grid layout with product cards
+- ✅ Product images and details
+- ✅ Price formatting (₹ INR)
+- ✅ Star ratings
+- ✅ Stock status
 
-## Browser Support
+### API Endpoints
+- `GET /api/products` - Fetch all products
+- `GET /api/products/:id` - Fetch single product
+- `POST /api/orders` - Create new order
 
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
+## 🐛 Bug Fixes
 
-## Development Notes
+### Cart Calculation Fix (Latest)
+- Fixed price parsing from database (string to number conversion)
+- Implemented proper INR formatting with commas
+- Added IDs to HTML elements for reliable DOM updates
+- Removed hardcoded subtotal values
+- Ensured consistent number handling across all cart operations
 
-- Cart data stored in localStorage
-- Dynamic content rendering with vanilla JavaScript
-- Tailwind CSS via CDN for rapid styling
-- Material Symbols for icons
-- RESTful API design patterns
+## 📝 Environment Variables
 
-## Future Enhancements
+```env
+DATABASE_URL=postgresql://user:password@host/database
+PORT=5000
+```
 
-- User authentication and profiles
-- Product reviews and ratings system
-- Wishlist functionality
-- Order tracking
-- Payment gateway integration
-- Admin dashboard
-- Email notifications
-- Product recommendations
+## 🤝 Contributing
 
-## License
+This is a learning project from UnifyLabs practice. Feel free to fork and experiment!
 
-This project is for educational purposes.
+## 📄 License
 
----
+MIT License - Feel free to use this project for learning purposes.
 
-**Built with ❤️ for learning web development**
-=======
-# unify-labs-practice
-🚀 My Unify Labs Internship Practice Code
+## 🙏 Acknowledgments
 
-This repository contains all my practice projects and exercises from the Unify Labs internship program.
-
-## 📚 Projects
-
-### Day 29 - Project Zenith: Full-Stack Blogging CMS
-
-A premium, Twitter-inspired blogging platform with a stunning glassmorphic UI and full CRUD functionality.
-
-**🚀 Live Demo**: https://project-zenith-coral.vercel.app
-
-**Features**:
-- Premium Glassmorphic UI with dark theme and neon gradients
-- Twitter-like three-column layout
-- Full CRUD operations for blog posts
-- Real-time character counter (280 char limit)
-- Serverless architecture with Vercel + Neon Postgres
-
-**Tech Stack**: HTML5, CSS3, Vanilla JavaScript, Vercel Serverless Functions, Neon Postgres
-
-📁 [View Project Details](./Day-29-Project-Zenith/README.md)
-
----
-
-### Previous Days
-
-- Day 01-28: Various practice exercises and projects
-
-## 🛠️ Setup
-
-Each day's project has its own setup instructions. Navigate to the specific day folder for details.
-
-## 📝 License
-
-MIT
->>>>>>> 284fbda8ba2bd0901e3097f59bc7139617596da1
+- UnifyLabs for the project structure
+- Tailwind CSS for styling
+- Neon for PostgreSQL hosting
+- Vercel for deployment platform

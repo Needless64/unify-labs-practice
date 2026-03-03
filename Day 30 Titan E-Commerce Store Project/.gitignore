@@ -38,3 +38,4 @@ build/
 .DS_Store
 Thumbs.db
 >>>>>>> 284fbda8ba2bd0901e3097f59bc7139617596da1
+.vercel

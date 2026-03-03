@@ -1,129 +1,50 @@
-const { ObjectId } = require('mongodb');
-const { getDB } = require('../config/mockDatabase');
+const { sql } = require('../config/database');
 
 class Order {
-  static getCollection() {
-    return getDB().getCollection('orders');
-  }
-
-  // Create new order
-  static async create(orderData) {
-    try {
-      const collection = this.getCollection();
-      
-      const order = {
-        customerName: orderData.customerName,
-        email: orderData.email,
-        phone: orderData.phone,
-        address: {
-          line1: orderData.addressLine1,
-          line2: orderData.addressLine2 || '',
-          city: orderData.city,
-          state: orderData.state,
-          zipCode: orderData.zipCode,
-          country: orderData.country
-        },
-        items: orderData.items,
-        subtotal: orderData.subtotal,
-        shipping: orderData.shipping || 0,
-        tax: orderData.tax || 0,
-        totalAmount: orderData.totalAmount,
-        status: 'pending',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-
-      const result = await collection.insertOne(order);
-      
-      return { 
-        _id: result.insertedId, 
-        ...order,
-        message: 'Order created successfully' 
-      };
-    } catch (error) {
-      throw new Error(`Error creating order: ${error.message}`);
+    static async findAll() {
+        const result = await sql`SELECT * FROM orders ORDER BY created_at DESC`;
+        return result.rows;
     }
-  }
 
-  // Get order by ID
-  static async findById(id) {
-    try {
-      const collection = this.getCollection();
-      const order = await collection.findOne({ _id: new ObjectId(id) });
-      
-      if (!order) {
-        throw new Error('Order not found');
-      }
-      
-      return order;
-    } catch (error) {
-      throw new Error(`Error fetching order: ${error.message}`);
+    static async findById(id) {
+        const result = await sql`SELECT * FROM orders WHERE id = ${id}`;
+        return result.rows[0];
     }
-  }
 
-  // Get all orders (admin function)
-  static async findAll(filters = {}) {
-    try {
-      const query = {};
-      
-      if (filters.status) {
-        query.status = filters.status;
-      }
-      
-      if (filters.email) {
-        query.email = filters.email;
-      }
-
-      const collection = this.getCollection();
-      const orders = await collection
-        .find(query)
-        .sort({ createdAt: -1 })
-        .toArray();
-      
-      return orders;
-    } catch (error) {
-      throw new Error(`Error fetching orders: ${error.message}`);
+    static async create(orderData) {
+        const { 
+            customer_name, 
+            customer_email, 
+            customer_phone, 
+            shipping_address, 
+            items, 
+            total_amount, 
+            status = 'pending' 
+        } = orderData;
+        
+        const result = await sql`
+            INSERT INTO orders (customer_name, customer_email, customer_phone, shipping_address, items, total_amount, status) 
+            VALUES (${customer_name}, ${customer_email}, ${customer_phone}, ${JSON.stringify(shipping_address)}, ${JSON.stringify(items)}, ${total_amount}, ${status}) 
+            RETURNING *
+        `;
+        return result.rows[0];
     }
-  }
 
-  // Update order status (admin function)
-  static async updateStatus(id, status) {
-    try {
-      const collection = this.getCollection();
-      const result = await collection.updateOne(
-        { _id: new ObjectId(id) },
-        { 
-          $set: { 
-            status, 
-            updatedAt: new Date() 
-          } 
-        }
-      );
-      
-      if (result.matchedCount === 0) {
-        throw new Error('Order not found');
-      }
-      
-      return await this.findById(id);
-    } catch (error) {
-      throw new Error(`Error updating order status: ${error.message}`);
+    static async update(id, orderData) {
+        const { status } = orderData;
+        const result = await sql`
+            UPDATE orders 
+            SET status = ${status} 
+            WHERE id = ${id} 
+            RETURNING *
+        `;
+        return result.rows[0];
     }
-  }
 
-  // Get orders by email
-  static async findByEmail(email) {
-    try {
-      const collection = this.getCollection();
-      const orders = await collection
-        .find({ email })
-        .sort({ createdAt: -1 })
-        .toArray();
-      
-      return orders;
-    } catch (error) {
-      throw new Error(`Error fetching orders by email: ${error.message}`);
+    static async delete(id) {
+        await sql`DELETE FROM orders WHERE id = ${id}`;
+        return { message: 'Order deleted successfully' };
     }
-  }
 }
 
 module.exports = Order;

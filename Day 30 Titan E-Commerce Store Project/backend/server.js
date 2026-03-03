@@ -3,8 +3,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-// Use mock database for testing without MongoDB
-const connectDB = require('./config/mockDatabase').connectDB;
 const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 
@@ -18,9 +16,6 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Connect to MongoDB
-connectDB();
 
 // Routes
 app.use('/api/products', productRoutes);
