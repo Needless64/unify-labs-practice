@@ -22,10 +22,21 @@ A full-stack e-commerce application featuring:
 
 ---
 
-### Day 29: Project Zenith
-Web application project with MongoDB integration.
+### Day 29: Project Zenith - Full-Stack Blogging CMS
+**Status:** ✅ Deployed on Vercel  
+**Live Demo:** [https://project-zenith-coral.vercel.app](https://project-zenith-coral.vercel.app)
 
-**Tech Stack:** HTML, CSS, JavaScript, Node.js, Express, MongoDB
+A premium, Twitter-inspired blogging platform featuring:
+- Glassmorphic UI with dark theme and neon gradients
+- Full CRUD operations for blog posts
+- Real-time character counter (280 char limit)
+- Serverless architecture with Vercel Functions
+- Neon Postgres database integration
+- Responsive design
+
+**Tech Stack:** HTML, CSS (Glassmorphism), JavaScript, Vercel Serverless Functions, PostgreSQL (Neon)
+
+[View Project Details →](./Day-29-Project-Zenith/)
 
 ---
 
